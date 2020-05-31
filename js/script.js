@@ -13,20 +13,19 @@
 "Любимый жанр #(номер по порядку, начиная с 1) - это (название из массива)"*/
 
 "use strict";
-let numberOfFilms;
+
 
 
 
 let personalMovieDB = {
-    count: numberOfFilms,
+    count: 0,
     movies: {},
     actors:{},
     genres:[],
     privat: false,
     start: function() {
-        numberOfFilms = +prompt("Сколько фильмов вы посмотрели?","0");
-        personalMovieDB.count = numberOfFilms; 
-        while(numberOfFilms == ''|| numberOfFilms == null || isNaN(numberOfFilms)) {
+        personalMovieDB.count = +prompt("Сколько фильмов вы посмотрели?","0"); 
+        while(personalMovieDB.count == ''|| personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
         personalMovieDB.start();
         }
     },
@@ -45,7 +44,7 @@ let personalMovieDB = {
         }
       },
     detectPersonalLevel: function () {
-        if(personalMovieDB.count < 10 && numberOfFilms >= 0) {
+        if(personalMovieDB.count < 10 ) {
             console.log("Просмотрено довольно мало фильмов.");
         } else if (personalMovieDB.count < 30 && personalMovieDB.count >= 10 ) {
             console.log("Вы классический зритель.");
@@ -61,9 +60,24 @@ let personalMovieDB = {
     writeYourGenres:   function writeYourGenres() {
             for(let i = 0; i < 3; i++){
                 const a = prompt(`Ваш любимый жанр под номером ${i+1}`,'');
+                if(a != null  && a != '') {
                 personalMovieDB.genres[i] = a;
+                } else {
+                    console.log("Вы ввели некоректные данные или не ввели их вовсе");
+                    i = i -1;
+                }
             }
-            }
+            personalMovieDB.ganres.forEach ((item,i) => {
+                console.log(`Любимый жанр ${i+1} - это ${item}`) ;
+            });
+            },
+    toggleVisibleMyDB: function () {
+        if (personalMovieDB.privat ) {
+            personalMovieDB.privat = false ;
+        } else {
+            personalMovieDB.privat = true ;
+        }
+    }       
 
 };
 personalMovieDB.start();
